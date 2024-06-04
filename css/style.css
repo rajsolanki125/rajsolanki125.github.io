@@ -227,6 +227,46 @@ a:hover {
   transition: all 500ms ease;
 }
 
+.facebook-icon {
+  position: relative;
+}
+
+
+.hover-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* adjust this value based on your design */
+  height: 100%; /* adjust this value based on your design */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  /* padding: 10px; */
+  display: none;
+
+  margin-top: -180px;
+}
+
+
+.facebook-icon:hover .hover-screen {
+  display: block;
+}
+
+/* Media queries for different screen sizes */
+@media only screen and (max-width: 768px) {
+  .hover-screen {
+    width: 150px;
+    height: 100px;
+  }
+}
+
+
+@media only screen and (max-width: 480px) {
+  .hover-screen {
+    width: 100px;
+    height: 80px;
+  }
+}
+
 /*------/ Ul resect /------*/
 
 .ul-resect,

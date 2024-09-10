@@ -446,8 +446,8 @@
     $('#wp_contact_form').on('submit', function(e){
       const name = $('#wp_name').val();
       var wplink = encodeURIComponent(`Hello Raj,\nI'm *${name}*,\n\nI'm sure you're not too busy to chat with me, right?`);
-      // alert(wplink);
-      window.open("https://wa.me/919313310090?text="+wplink, "_blank")
+      
+      window.open("https://wa.me/919313310090?text="+wplink);
     });
   </script>
 

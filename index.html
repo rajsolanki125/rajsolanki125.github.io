@@ -468,7 +468,8 @@
       const name = $('#wp_name').val();
       var wplink = encodeURIComponent(`Hello Raj,\nI'm *${name}*,\n\nI'm sure you're not too busy to chat with me, right?`);
 
-      window.open("https://wa.me/919313310090?text=" + wplink);
+      // window.open("https://wa.me/919313310090?text=" + wplink);
+      window.location.href = "https://wa.me/919313310090?text=" + wplink;
     });
   </script>
 

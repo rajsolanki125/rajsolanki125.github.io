@@ -52,7 +52,7 @@
       object-fit: cover;
       /* Ensures the image covers the entire div */
       z-index: -1;
-      transition: all 1s ease-in-out;
+      /* transition: all 1s ease-in-out; */
       /* Places the image behind any other content within the div */
     }
 
@@ -105,6 +105,8 @@
     <img src="img/raj2.jpg" alt="Background" class="background-img">
     <img src="img/raj3.jpg" alt="Background" class="background-img">
     <img src="img/raj4.jpg" alt="Background" class="background-img">
+    <img src="img/raj5.jpg" alt="Background" class="background-img">
+    <img src="img/raj6.jpg" alt="Background" class="background-img">
     <div class="overlay-itro"></div>
     <div class="intro-content display-table">
       <div class="table-cell">
@@ -485,7 +487,7 @@
 
     let currentIndex = 0;
     const images = document.querySelectorAll('.background-img');
-    const intervalTime = 3000; // Change image every 3 seconds (3000ms)
+    const intervalTime = 200; // Change image every 3 seconds (3000ms)
     images[currentIndex].style.opacity = '1'; // Show the next image
 
     function showNextImage() {

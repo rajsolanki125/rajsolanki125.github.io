@@ -487,19 +487,29 @@
 
     let currentIndex = 0;
     const images = document.querySelectorAll('.background-img');
-    const intervalTime = 200; // Change image every 3 seconds (3000ms)
-    images[currentIndex].style.opacity = '1'; // Show the next image
+    let intervalTime = 30; // Start with 3 seconds (3000ms)
+
+    images[currentIndex].style.opacity = '1'; // Initially show the first image
 
     function showNextImage() {
-      // images[currentIndex].style.display = 'none'; // Hide the current image
       images[currentIndex].style.opacity = '0'; // Hide the current image
       currentIndex = (currentIndex + 1) % images.length; // Move to the next image
-      // images[currentIndex].style.display = 'block'; // Show the next image
       images[currentIndex].style.opacity = '1'; // Show the next image
+
+      if (currentIndex === images.length - 1) {
+        intervalTime += 100; // Add 1 second after each full cycle
+        if(intervalTime > 3050){
+          intervalTime = 30;
+        }
+        clearInterval(slideshowInterval); // Clear the current interval
+        slideshowInterval = setInterval(showNextImage, intervalTime); // Set a new interval with the updated time
+        console.log('Interval time increased to:', intervalTime);
+      }
     }
 
-    // Automatically change the image at the specified interval
-    setInterval(showNextImage, intervalTime);
+    // Start the slideshow with the initial interval time
+    let slideshowInterval = setInterval(showNextImage, intervalTime);
+
   </script>
 
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

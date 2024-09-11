@@ -33,6 +33,27 @@
   <meta property="og:url" content="https://rajsolanki.me">
   <meta name="robots" content="index, follow">
 
+  <style>
+    #home {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      /* Adjust this to your desired height */
+      overflow: hidden;
+    }
+
+    #home .background-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Ensures the image covers the entire div */
+      z-index: -1;
+      /* Places the image behind any other content within the div */
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -72,8 +93,8 @@
   <!--/ Nav End /-->
 
   <!--/ Intro Skew Star /-->
-  <div id="home" class="intro route bg-image" style="background-image: url(img/raj.jpg)" data-aos="zoom-out"
-    data-aos-duration="1100">
+  <div id="home" class="intro route bg-image" data-aos="zoom-out" data-aos-duration="1100">
+    <img src="img/raj.jpg" alt="Background" class="background-img">
     <div class="overlay-itro"></div>
     <div class="intro-content display-table">
       <div class="table-cell">
@@ -443,11 +464,11 @@
       $('#exampleModal').modal('show');
     });
 
-    $('#wp_contact_form').on('submit', function(e){
+    $('#wp_contact_form').on('submit', function (e) {
       const name = $('#wp_name').val();
       var wplink = encodeURIComponent(`Hello Raj,\nI'm *${name}*,\n\nI'm sure you're not too busy to chat with me, right?`);
-      
-      window.open("https://wa.me/919313310090?text="+wplink);
+
+      window.open("https://wa.me/919313310090?text=" + wplink);
     });
   </script>
 

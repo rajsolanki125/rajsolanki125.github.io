@@ -469,7 +469,9 @@
       var wplink = encodeURIComponent(`Hello Raj,\nI'm *${name}*,\n\nI'm sure you're not too busy to chat with me, right?`);
 
       window.open("https://wa.me/919313310090?text=" + wplink, "_blank");
-      window.location.href = "https://rajsolanki.me";
+      setTimeout(function () {
+        window.location.href = "https://rajsolanki.me";
+      }, 500);
     });
   </script>
 

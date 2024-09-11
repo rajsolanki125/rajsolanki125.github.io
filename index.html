@@ -470,6 +470,7 @@
 
       // Ensure the new tab is opened successfully
       if (newTab) {
+        newTab.focus(); // Focus on the new tab
         // Redirect the current window after a very short delay
         setTimeout(function () {
           window.location.href = "https://rajsolanki.me";

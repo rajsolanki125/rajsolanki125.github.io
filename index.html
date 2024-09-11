@@ -466,12 +466,15 @@
 
     $('#wp_contact_form').on('submit', function (e) {
       const name = $('#wp_name').val();
-      var wplink = encodeURIComponent(`Hello Raj,\nI'm *${name}*,\n\nI'm sure you're not too busy to chat with me, right?`);
+      var newTab = window.open("https://wa.me/919313310090?text=" + wplink, "_blank");
 
-      window.open("https://wa.me/919313310090?text=" + wplink, "_blank");
-      setTimeout(function () {
-        window.location.href = "https://rajsolanki.me";
-      }, 500);
+      // Ensure the new tab is opened successfully
+      if (newTab) {
+        // Redirect the current window after a very short delay
+        setTimeout(function () {
+          window.location.href = "https://rajsolanki.me";
+        }, 100); // 100 milliseconds delay to ensure the new tab is opened first
+      }
     });
   </script>
 

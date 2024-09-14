@@ -1,33 +1,868 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            font-size: 50px;
-        }
-        p {
+            margin: 0;
             font-size: 20px;
         }
-        a {
-            text-decoration: none;
-            color: #3498db;
+
+        * {
+            box-sizing: border-box;
         }
-        a:hover {
-            text-decoration: underline;
+
+        .container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: white;
+            color: black;
+            font-family: arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .content {
+            position: relative;
+            width: 600px;
+            max-width: 100%;
+            margin: 20px;
+            background: white;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: -10px 10px 67px -12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: apparition 0.8s 1.2s cubic-bezier(0.39, 0.575, 0.28, 0.995) forwards;
+        }
+
+        .content p {
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.1rem;
+            color: #595959;
+        }
+
+        .content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .content button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.5rem 1rem;
+            border: 3px solid #595959;
+            background: transparent;
+            font-size: 1rem;
+            color: #595959;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            pointer-events: none;
+        }
+
+        .particle:nth-child(1) {
+            top: 85.2300242131%;
+            left: 38.0116959064%;
+            font-size: 26px;
+            filter: blur(0.02px);
+            animation: 37s floatReverse infinite;
+        }
+
+        .particle:nth-child(2) {
+            top: 78.8177339901%;
+            left: 2.9644268775%;
+            font-size: 12px;
+            filter: blur(0.04px);
+            animation: 25s float2 infinite;
+        }
+
+        .particle:nth-child(3) {
+            top: 57.9141104294%;
+            left: 46.3054187192%;
+            font-size: 15px;
+            filter: blur(0.06px);
+            animation: 35s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(4) {
+            top: 96.8523002421%;
+            left: 50.6822612086%;
+            font-size: 26px;
+            filter: blur(0.08px);
+            animation: 32s floatReverse infinite;
+        }
+
+        .particle:nth-child(5) {
+            top: 33.1303288672%;
+            left: 19.5886385896%;
+            font-size: 21px;
+            filter: blur(0.1px);
+            animation: 24s floatReverse infinite;
+        }
+
+        .particle:nth-child(6) {
+            top: 50.2415458937%;
+            left: 96.3035019455%;
+            font-size: 28px;
+            filter: blur(0.12px);
+            animation: 32s floatReverse infinite;
+        }
+
+        .particle:nth-child(7) {
+            top: 73.3496332518%;
+            left: 47.1512770138%;
+            font-size: 18px;
+            filter: blur(0.14px);
+            animation: 27s floatReverse infinite;
+        }
+
+        .particle:nth-child(8) {
+            top: 12.6829268293%;
+            left: 36.2745098039%;
+            font-size: 20px;
+            filter: blur(0.16px);
+            animation: 31s float2 infinite;
+        }
+
+        .particle:nth-child(9) {
+            top: 30.5795314427%;
+            left: 84.0751730959%;
+            font-size: 11px;
+            filter: blur(0.18px);
+            animation: 22s float infinite;
+        }
+
+        .particle:nth-child(10) {
+            top: 57.490864799%;
+            left: 72.4779627816%;
+            font-size: 21px;
+            filter: blur(0.2px);
+            animation: 37s float infinite;
+        }
+
+        .particle:nth-child(11) {
+            top: 77.2014475271%;
+            left: 37.9008746356%;
+            font-size: 29px;
+            filter: blur(0.22px);
+            animation: 29s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(12) {
+            top: 96.3855421687%;
+            left: 71.8446601942%;
+            font-size: 30px;
+            filter: blur(0.24px);
+            animation: 32s float2 infinite;
+        }
+
+        .particle:nth-child(13) {
+            top: 31.2195121951%;
+            left: 5.8823529412%;
+            font-size: 20px;
+            filter: blur(0.26px);
+            animation: 34s float2 infinite;
+        }
+
+        .particle:nth-child(14) {
+            top: 87.7928483354%;
+            left: 9.8911968348%;
+            font-size: 11px;
+            filter: blur(0.28px);
+            animation: 39s float infinite;
+        }
+
+        .particle:nth-child(15) {
+            top: 5.8181818182%;
+            left: 88.7804878049%;
+            font-size: 25px;
+            filter: blur(0.3px);
+            animation: 38s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(16) {
+            top: 6.8965517241%;
+            left: 5.9288537549%;
+            font-size: 12px;
+            filter: blur(0.32px);
+            animation: 33s float2 infinite;
+        }
+
+        .particle:nth-child(17) {
+            top: 24.42002442%;
+            left: 29.4406280667%;
+            font-size: 19px;
+            filter: blur(0.34px);
+            animation: 39s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(18) {
+            top: 22.4664224664%;
+            left: 46.1236506379%;
+            font-size: 19px;
+            filter: blur(0.36px);
+            animation: 39s float infinite;
+        }
+
+        .particle:nth-child(19) {
+            top: 45.2644526445%;
+            left: 37.5123395854%;
+            font-size: 13px;
+            filter: blur(0.38px);
+            animation: 22s floatReverse infinite;
+        }
+
+        .particle:nth-child(20) {
+            top: 92.2330097087%;
+            left: 96.6796875%;
+            font-size: 24px;
+            filter: blur(0.4px);
+            animation: 39s floatReverse infinite;
+        }
+
+        .particle:nth-child(21) {
+            top: 60.8588957055%;
+            left: 46.3054187192%;
+            font-size: 15px;
+            filter: blur(0.42px);
+            animation: 25s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(22) {
+            top: 36.2745098039%;
+            left: 71.8503937008%;
+            font-size: 16px;
+            filter: blur(0.44px);
+            animation: 37s float infinite;
+        }
+
+        .particle:nth-child(23) {
+            top: 15.6097560976%;
+            left: 84.3137254902%;
+            font-size: 20px;
+            filter: blur(0.46px);
+            animation: 23s float2 infinite;
+        }
+
+        .particle:nth-child(24) {
+            top: 14.5278450363%;
+            left: 11.6959064327%;
+            font-size: 26px;
+            filter: blur(0.48px);
+            animation: 26s float infinite;
+        }
+
+        .particle:nth-child(25) {
+            top: 58.0565805658%;
+            left: 87.8578479763%;
+            font-size: 13px;
+            filter: blur(0.5px);
+            animation: 38s float2 infinite;
+        }
+
+        .particle:nth-child(26) {
+            top: 89.8656898657%;
+            left: 76.5456329735%;
+            font-size: 19px;
+            filter: blur(0.52px);
+            animation: 23s float2 infinite;
+        }
+
+        .particle:nth-child(27) {
+            top: 96.5853658537%;
+            left: 2.9411764706%;
+            font-size: 20px;
+            filter: blur(0.54px);
+            animation: 25s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(28) {
+            top: 96.3855421687%;
+            left: 33.0097087379%;
+            font-size: 30px;
+            filter: blur(0.56px);
+            animation: 21s float infinite;
+        }
+
+        .particle:nth-child(29) {
+            top: 62.4390243902%;
+            left: 61.7647058824%;
+            font-size: 20px;
+            filter: blur(0.58px);
+            animation: 38s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(30) {
+            top: 25.2427184466%;
+            left: 83.0078125%;
+            font-size: 24px;
+            filter: blur(0.6px);
+            animation: 32s float2 infinite;
+        }
+
+        .particle:nth-child(31) {
+            top: 37.0280146163%;
+            left: 95.9843290891%;
+            font-size: 21px;
+            filter: blur(0.62px);
+            animation: 37s float2 infinite;
+        }
+
+        .particle:nth-child(32) {
+            top: 34.9939246659%;
+            left: 4.8875855327%;
+            font-size: 23px;
+            filter: blur(0.64px);
+            animation: 26s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(33) {
+            top: 23.6162361624%;
+            left: 55.2813425469%;
+            font-size: 13px;
+            filter: blur(0.66px);
+            animation: 40s floatReverse infinite;
+        }
+
+        .particle:nth-child(34) {
+            top: 85.1269649335%;
+            left: 65.2385589094%;
+            font-size: 27px;
+            filter: blur(0.68px);
+            animation: 26s float2 infinite;
+        }
+
+        .particle:nth-child(35) {
+            top: 3.8929440389%;
+            left: 25.4403131115%;
+            font-size: 22px;
+            filter: blur(0.7px);
+            animation: 26s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(36) {
+            top: 69.3975903614%;
+            left: 66.0194174757%;
+            font-size: 30px;
+            filter: blur(0.72px);
+            animation: 26s float infinite;
+        }
+
+        .particle:nth-child(37) {
+            top: 89.8550724638%;
+            left: 4.8638132296%;
+            font-size: 28px;
+            filter: blur(0.74px);
+            animation: 27s floatReverse infinite;
+        }
+
+        .particle:nth-child(38) {
+            top: 94.0606060606%;
+            left: 72.1951219512%;
+            font-size: 25px;
+            filter: blur(0.76px);
+            animation: 28s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(39) {
+            top: 72.8167281673%;
+            left: 10.8588351431%;
+            font-size: 13px;
+            filter: blur(0.78px);
+            animation: 34s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(40) {
+            top: 64.1183723798%;
+            left: 37.5865479723%;
+            font-size: 11px;
+            filter: blur(0.8px);
+            animation: 33s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(41) {
+            top: 64.7342995169%;
+            left: 2.9182879377%;
+            font-size: 28px;
+            filter: blur(0.82px);
+            animation: 28s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(42) {
+            top: 0.9756097561%;
+            left: 66.6666666667%;
+            font-size: 20px;
+            filter: blur(0.84px);
+            animation: 33s float infinite;
+        }
+
+        .particle:nth-child(43) {
+            top: 14.5454545455%;
+            left: 58.5365853659%;
+            font-size: 25px;
+            filter: blur(0.86px);
+            animation: 24s floatReverse infinite;
+        }
+
+        .particle:nth-child(44) {
+            top: 98.0392156863%;
+            left: 3.937007874%;
+            font-size: 16px;
+            filter: blur(0.88px);
+            animation: 31s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(45) {
+            top: 6.7961165049%;
+            left: 29.296875%;
+            font-size: 24px;
+            filter: blur(0.9px);
+            animation: 35s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(46) {
+            top: 96.4677222899%;
+            left: 8.8148873653%;
+            font-size: 21px;
+            filter: blur(0.92px);
+            animation: 31s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(47) {
+            top: 93.137254902%;
+            left: 44.2913385827%;
+            font-size: 16px;
+            filter: blur(0.94px);
+            animation: 21s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(48) {
+            top: 2.9161603888%;
+            left: 17.5953079179%;
+            font-size: 23px;
+            filter: blur(0.96px);
+            animation: 38s float infinite;
+        }
+
+        .particle:nth-child(49) {
+            top: 67.7146311971%;
+            left: 74.0019474197%;
+            font-size: 27px;
+            filter: blur(0.98px);
+            animation: 31s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(50) {
+            top: 80.387409201%;
+            left: 57.5048732943%;
+            font-size: 26px;
+            filter: blur(1px);
+            animation: 31s float2 infinite;
+        }
+
+        .particle:nth-child(51) {
+            top: 31.884057971%;
+            left: 35.9922178988%;
+            font-size: 28px;
+            filter: blur(1.02px);
+            animation: 25s floatReverse infinite;
+        }
+
+        .particle:nth-child(52) {
+            top: 14.742014742%;
+            left: 22.6824457594%;
+            font-size: 14px;
+            filter: blur(1.04px);
+            animation: 22s float2 infinite;
+        }
+
+        .particle:nth-child(53) {
+            top: 25.4901960784%;
+            left: 66.9291338583%;
+            font-size: 16px;
+            filter: blur(1.06px);
+            animation: 36s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(54) {
+            top: 60.487804878%;
+            left: 58.8235294118%;
+            font-size: 20px;
+            filter: blur(1.08px);
+            animation: 24s float2 infinite;
+        }
+
+        .particle:nth-child(55) {
+            top: 22.1686746988%;
+            left: 28.1553398058%;
+            font-size: 30px;
+            filter: blur(1.1px);
+            animation: 23s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(56) {
+            top: 70.7021791768%;
+            left: 44.8343079922%;
+            font-size: 26px;
+            filter: blur(1.12px);
+            animation: 26s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(57) {
+            top: 94.9816401469%;
+            left: 41.2979351032%;
+            font-size: 17px;
+            filter: blur(1.14px);
+            animation: 32s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(58) {
+            top: 73.4394124847%;
+            left: 54.0806293019%;
+            font-size: 17px;
+            filter: blur(1.16px);
+            animation: 32s float2 infinite;
+        }
+
+        .particle:nth-child(59) {
+            top: 74.8481166464%;
+            left: 97.7517106549%;
+            font-size: 23px;
+            filter: blur(1.18px);
+            animation: 37s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(60) {
+            top: 74.5762711864%;
+            left: 68.2261208577%;
+            font-size: 26px;
+            filter: blur(1.2px);
+            animation: 30s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(61) {
+            top: 16.6871165644%;
+            left: 76.8472906404%;
+            font-size: 15px;
+            filter: blur(1.22px);
+            animation: 40s floatReverse infinite;
+        }
+
+        .particle:nth-child(62) {
+            top: 27.9855247286%;
+            left: 60.2526724976%;
+            font-size: 29px;
+            filter: blur(1.24px);
+            animation: 36s float2 infinite;
+        }
+
+        .particle:nth-child(63) {
+            top: 49.9388004896%;
+            left: 47.197640118%;
+            font-size: 17px;
+            filter: blur(1.26px);
+            animation: 36s float2 infinite;
+        }
+
+        .particle:nth-child(64) {
+            top: 14.7601476015%;
+            left: 15.7946692991%;
+            font-size: 13px;
+            filter: blur(1.28px);
+            animation: 37s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(65) {
+            top: 94.4649446494%;
+            left: 7.8973346496%;
+            font-size: 13px;
+            filter: blur(1.3px);
+            animation: 23s floatReverse infinite;
+        }
+
+        .particle:nth-child(66) {
+            top: 84.8780487805%;
+            left: 67.6470588235%;
+            font-size: 20px;
+            filter: blur(1.32px);
+            animation: 34s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(67) {
+            top: 19.3704600484%;
+            left: 87.7192982456%;
+            font-size: 26px;
+            filter: blur(1.34px);
+            animation: 21s float infinite;
+        }
+
+        .particle:nth-child(68) {
+            top: 73.8760631835%;
+            left: 18.5728250244%;
+            font-size: 23px;
+            filter: blur(1.36px);
+            animation: 24s float infinite;
+        }
+
+        .particle:nth-child(69) {
+            top: 70.243902439%;
+            left: 70.5882352941%;
+            font-size: 20px;
+            filter: blur(1.38px);
+            animation: 31s floatReverse infinite;
+        }
+
+        .particle:nth-child(70) {
+            top: 82.3244552058%;
+            left: 49.7076023392%;
+            font-size: 26px;
+            filter: blur(1.4px);
+            animation: 21s floatReverse infinite;
+        }
+
+        .particle:nth-child(71) {
+            top: 54.7677261614%;
+            left: 59.9214145383%;
+            font-size: 18px;
+            filter: blur(1.42px);
+            animation: 22s floatReverse2 infinite;
+        }
+
+        .particle:nth-child(72) {
+            top: 55.0368550369%;
+            left: 97.6331360947%;
+            font-size: 14px;
+            filter: blur(1.44px);
+            animation: 40s floatReverse infinite;
+        }
+
+        .particle:nth-child(73) {
+            top: 77.6699029126%;
+            left: 93.75%;
+            font-size: 24px;
+            filter: blur(1.46px);
+            animation: 28s floatReverse infinite;
+        }
+
+        .particle:nth-child(74) {
+            top: 11.6788321168%;
+            left: 95.8904109589%;
+            font-size: 22px;
+            filter: blur(1.48px);
+            animation: 22s float infinite;
+        }
+
+        .particle:nth-child(75) {
+            top: 90.5109489051%;
+            left: 39.1389432485%;
+            font-size: 22px;
+            filter: blur(1.5px);
+            animation: 23s float infinite;
+        }
+
+        .particle:nth-child(76) {
+            top: 97.4421437272%;
+            left: 95.9843290891%;
+            font-size: 21px;
+            filter: blur(1.52px);
+            animation: 38s floatReverse infinite;
+        }
+
+        .particle:nth-child(77) {
+            top: 68.5990338164%;
+            left: 17.5097276265%;
+            font-size: 28px;
+            filter: blur(1.54px);
+            animation: 37s float2 infinite;
+        }
+
+        .particle:nth-child(78) {
+            top: 36.0097323601%;
+            left: 17.6125244618%;
+            font-size: 22px;
+            filter: blur(1.56px);
+            animation: 26s float infinite;
+        }
+
+        .particle:nth-child(79) {
+            top: 59.0405904059%;
+            left: 52.3198420533%;
+            font-size: 13px;
+            filter: blur(1.58px);
+            animation: 27s float infinite;
+        }
+
+        .particle:nth-child(80) {
+            top: 96.5517241379%;
+            left: 36.5612648221%;
+            font-size: 12px;
+            filter: blur(1.6px);
+            animation: 29s floatReverse2 infinite;
+        }
+
+        @keyframes apparition {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(180px);
+            }
+        }
+
+        @keyframes floatReverse {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-180px);
+            }
+        }
+
+        @keyframes float2 {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(28px);
+            }
+        }
+
+        @keyframes floatReverse2 {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-28px);
+            }
         }
     </style>
 </head>
+
 <body>
-    <h1>404 - Page Not Found</h1>
-    <p>Oops! The page you are looking for does not exist.</p>
-    <p><a href="/">Return to Home</a></p>
+    <main class='container'>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>4</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <span class='particle'>0</span>
+        <article class='content'>
+            <p>Damnit stranger,</p>
+            <p>You got lost in the <strong>404</strong> galaxy.</p>
+            <p>
+                <a href="/"><button>Go back to earth.</button></a>
+            </p>
+        </article>
+    </main>
 </body>
+
 </html>

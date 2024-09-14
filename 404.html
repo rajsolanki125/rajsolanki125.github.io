@@ -63,6 +63,7 @@
             text-decoration: none;
             cursor: pointer;
             font-weight: bold;
+            transition: scale 3s;
         }
 
         .particle {
@@ -770,6 +771,17 @@
                 transform: translateY(-28px);
             }
         }
+
+        #gobackbtn:hover{
+            background-color: #595959;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #gobackbtn:focus{
+            transition: 3s;
+        }
     </style>
 </head>
 
@@ -859,10 +871,26 @@
             <p>Damnit stranger,</p>
             <p>You got lost in the <strong>404</strong> galaxy.</p>
             <p>
-                <a href="/"><button>Go back to earth.</button></a>
+                    <button id="gobackbtn" onclick="backtohome()">Go back to earth.</button>
             </p>
         </article>
+        <img src="img/rocket.gif" alt="" id="roc" style="width: 200px; display: none;">
     </main>
+    <script>
+        function backtohome(){
+            var rocket = document.getElementById("roc");
+            var box = document.querySelector(".content");
+            box.style.display = "none";
+            rocket.style.display = "block";
+            setTimeout(() => {
+                rocket.style.transition = "2s";
+                rocket.style.transform = "translateY(-450px)";
+            }, 1000);
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 3000);
+        }
+    </script>
 </body>
 
 </html>

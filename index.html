@@ -52,7 +52,7 @@
       object-fit: cover;
       /* Ensures the image covers the entire div */
       z-index: -1;
-      /* transition: all 1s ease-in-out; */
+      transition: all 1s ease-in-out;
       /* Places the image behind any other content within the div */
     }
 
@@ -488,27 +488,31 @@
 
     let currentIndex = 0;
     const images = document.querySelectorAll('.background-img');
-    let intervalTime = 30; // Start with 3 seconds (3000ms)
+    let intervalTime = 3000; 
 
     images[currentIndex].style.opacity = '1'; // Initially show the first image
 
+    // function showNextImage() {
+    //   images[currentIndex].style.opacity = '0'; // Hide the current image
+    //   currentIndex = (currentIndex + 1) % images.length; // Move to the next image
+    //   images[currentIndex].style.opacity = '1'; // Show the next image
+
+    //   if (currentIndex === images.length - 1) {
+    //     intervalTime += 200; // Add 1 second after each full cycle
+    //     if(intervalTime > 3050){
+    //       intervalTime = 30;
+    //     }
+    //     clearInterval(slideshowInterval); // Clear the current interval
+    //     slideshowInterval = setInterval(showNextImage, intervalTime); // Set a new interval with the updated time
+    //     console.log('Interval time increased to:', intervalTime);
+    //   }
+    // }
     function showNextImage() {
       images[currentIndex].style.opacity = '0'; // Hide the current image
       currentIndex = (currentIndex + 1) % images.length; // Move to the next image
       images[currentIndex].style.opacity = '1'; // Show the next image
-
-      if (currentIndex === images.length - 1) {
-        intervalTime += 200; // Add 1 second after each full cycle
-        if(intervalTime > 3050){
-          intervalTime = 30;
-        }
-        clearInterval(slideshowInterval); // Clear the current interval
-        slideshowInterval = setInterval(showNextImage, intervalTime); // Set a new interval with the updated time
-        console.log('Interval time increased to:', intervalTime);
-      }
     }
 
-    // Start the slideshow with the initial interval time
     let slideshowInterval = setInterval(showNextImage, intervalTime);
 
   </script>

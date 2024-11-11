@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soda Shop Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .background-images {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://via.placeholder.com/600x800?text=Coldrink1') no-repeat center top,
+                        url('https://via.placeholder.com/600x800?text=Coldrink2') no-repeat center center,
+                        url('https://via.placeholder.com/600x800?text=Coldrink3') no-repeat center bottom;
+            background-size: cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .menu-container {
+            padding: 15px;
+        }
+
+        .menu-header {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 12px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideIn 0.6s ease forwards;
+            animation-delay: calc(var(--item-index) * 0.15s);
+        }
+
+        .menu-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #007bff;
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .item-price {
+            color: #555;
+        }
+
+        /* Running Boy Animation */
+        .running-boy {
+            position: fixed;
+            bottom: 10px;
+            right: -80px;
+            width: 60px;
+            height: 60px;
+            background: url('https://via.placeholder.com/60?text=Boy') no-repeat center/cover;
+            animation: runningBoy 5s linear infinite;
+            z-index: 1000;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes runningBoy {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-30vw);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-images"></div>
+
+    <div class="menu-container">
+        <h1 class="menu-header">Soda Shop Menu</h1>
+        <!-- Menu items dynamically generated -->
+        <div id="menu-list"></div>
+    </div>
+
+    <!-- Running boy animation -->
+    <!-- <div class="running-boy"></div> -->
+
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Soda items data (30 items)
+        const sodas = [
+            { name: 'Sadi Soda', price: '₹7' },
+            { name: 'Limbu Soda', price: '₹12' },
+            { name: 'Lemon Soda', price: '₹15' },
+            { name: 'Masala Soda', price: '₹10' },
+            { name: 'Sing Soda', price: '₹15' },
+            { name: 'Ginger Soda', price: '₹18' },
+            { name: 'Cola Soda', price: '₹20' },
+            { name: 'Orange Soda', price: '₹22' },
+            { name: 'Mango Soda', price: '₹25' },
+            { name: 'Pineapple Soda', price: '₹24' },
+            { name: 'Grape Soda', price: '₹21' },
+            { name: 'Rose Soda', price: '₹23' },
+            { name: 'Blueberry Soda', price: '₹27' },
+            { name: 'Mint Soda', price: '₹17' },
+            { name: 'Cumin Soda', price: '₹14' },
+            { name: 'Berry Mix Soda', price: '₹28' },
+            { name: 'Spicy Lemon Soda', price: '₹16' },
+            { name: 'Coconut Soda', price: '₹30' },
+            { name: 'Strawberry Soda', price: '₹29' },
+            { name: 'Peach Soda', price: '₹26' },
+            { name: 'Watermelon Soda', price: '₹25' },
+            { name: 'Chocolate Soda', price: '₹32' },
+            { name: 'Kiwi Soda', price: '₹31' },
+            { name: 'Pomegranate Soda', price: '₹29' },
+            { name: 'Apple Soda', price: '₹30' },
+            { name: 'Tamarind Soda', price: '₹18' },
+            { name: 'Raspberry Soda', price: '₹26' },
+            { name: 'Vanilla Soda', price: '₹24' },
+            { name: 'Guava Soda', price: '₹22' },
+            { name: 'Papaya Soda', price: '₹20' },
+        ];
+
+        // Render soda items
+        const menuList = document.getElementById('menu-list');
+        sodas.forEach((soda, index) => {
+            const menuItem = document.createElement('div');
+            menuItem.className = 'menu-item';
+            menuItem.style.setProperty('--item-index', index);
+            menuItem.innerHTML = `
+                <img src="https://via.placeholder.com/60?text=S${index + 1}" alt="${soda.name}">
+                <div class="item-details">
+                    <span class="item-name">${soda.name}</span>
+                    <span class="item-price">${soda.price}</span>
+                </div>
+            `;
+            menuList.appendChild(menuItem);
+        });
+    </script>
+</body>
+</html>

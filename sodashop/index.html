@@ -1,191 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soda Shop Menu</title>
+    <title>Expandable Soda Shop Menu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff; /* Light blue background */
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
         }
 
-        .background-images {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://via.placeholder.com/600x800?text=Coldrink1') no-repeat center top,
-                        url('https://via.placeholder.com/600x800?text=Coldrink2') no-repeat center center,
-                        url('https://via.placeholder.com/600x800?text=Coldrink3') no-repeat center bottom;
-            background-size: cover;
-            opacity: 0.2;
-            z-index: -1;
-        }
-
-        .menu-container {
-            padding: 15px;
+        .menu-section {
+            margin: 20px 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, padding 0.3s;
         }
 
         .menu-header {
-            text-align: center;
-            color: #007bff;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            animation: fadeIn 1s ease-in-out;
+            background: #007bff;
+            color: #ffffff;
+            padding: 10px;
+            margin-bottom: 0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .menu-item-container {
+            max-height: 0;
+            /* padding: 15px; */
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.3s;
         }
 
         .menu-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 12px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transform: translateY(30px);
-            opacity: 0;
-            animation: slideIn 0.6s ease forwards;
-            animation-delay: calc(var(--item-index) * 0.15s);
+            margin-bottom: 10px;
         }
 
-        .menu-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 15px;
-            border: 2px solid #007bff;
-        }
-
-        .item-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .item-name {
+        .menu-item-price {
             font-weight: bold;
-            color: #007bff;
         }
 
-        .item-price {
-            color: #555;
+        .accordion-button::after {
+            margin-left: auto;
         }
 
-        /* Running Boy Animation */
-        .running-boy {
-            position: fixed;
-            bottom: 10px;
-            right: -80px;
-            width: 60px;
-            height: 60px;
-            background: url('https://via.placeholder.com/60?text=Boy') no-repeat center/cover;
-            animation: runningBoy 5s linear infinite;
-            z-index: 1000;
+        .expanded {
+            max-height: 500px;
+            padding: 10px;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes runningBoy {
-            0% {
-                transform: translateX(0);
-            }
-            50% {
-                transform: translateX(-30vw);
-            }
-            100% {
-                transform: translateX(0);
-            }
+        .expanded-section {
+            /* padding: 15px; */
+            background: #d4e9ff;
+            max-height: 500px;
+            /* Set a maximum height for smooth transition */
+            overflow-y: auto;
         }
     </style>
 </head>
-<body>
-    <div class="background-images"></div>
 
-    <div class="menu-container">
-        <h1 class="menu-header">Soda Shop Menu</h1>
-        <!-- Menu items dynamically generated -->
-        <div id="menu-list"></div>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Soda Shop Menu</h1>
+
+        <!-- Collapsible sections -->
+        <div class="accordion" id="sodaMenu">
+
+            <!-- Regular Soda Section -->
+            <div class="menu-section" id="regularSodaSection">
+                <h2 class="menu-header" onclick="toggleSection('regularSodaSection', 'regularSodaContainer')">
+                    Regular Soda
+                </h2>
+                <div id="regularSodaContainer" class="menu-item-container">
+                    <div class="menu-item">
+                        <div class="item-name">Plain Strong Soda</div>
+                        <div class="menu-item-price">₹10</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Orange</div>
+                        <div class="menu-item-price">₹15</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Jeera Masala</div>
+                        <div class="menu-item-price">₹15</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Fruit Beer</div>
+                        <div class="menu-item-price">₹15</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lemon Special Section -->
+            <div class="menu-section" id="lemonSpecialSection">
+                <h2 class="menu-header" onclick="toggleSection('lemonSpecialSection', 'lemonSpecialContainer')">
+                    Lemon Special
+                </h2>
+                <div id="lemonSpecialContainer" class="menu-item-container">
+                    <div class="menu-item">
+                        <div class="item-name">Lemon Soda</div>
+                        <div class="menu-item-price">₹12</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Masala Lemon</div>
+                        <div class="menu-item-price">₹14</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Mint Lemon Soda</div>
+                        <div class="menu-item-price">₹16</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sp. Kashmiri Section -->
+            <div class="menu-section" id="spKashmiriSection">
+                <h2 class="menu-header" onclick="toggleSection('spKashmiriSection', 'spKashmiriContainer')">
+                    Sp. Kashmiri
+                </h2>
+                <div id="spKashmiriContainer" class="menu-item-container">
+                    <div class="menu-item">
+                        <div class="item-name">Kashmiri Soda</div>
+                        <div class="menu-item-price">₹20</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Kashmiri Delight</div>
+                        <div class="menu-item-price">₹25</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shing Soda Section -->
+            <div class="menu-section" id="shingSodaSection">
+                <h2 class="menu-header" onclick="toggleSection('shingSodaSection', 'shingSodaContainer')">
+                    Shing Soda
+                </h2>
+                <div id="shingSodaContainer" class="menu-item-container">
+                    <div class="menu-item">
+                        <div class="item-name">Plain Shing Soda</div>
+                        <div class="menu-item-price">₹10</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Masala Shing Soda</div>
+                        <div class="menu-item-price">₹15</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <!-- Running boy animation -->
-    <!-- <div class="running-boy"></div> -->
-
-    <!-- Bootstrap JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Soda items data (30 items)
-        const sodas = [
-            { name: 'Sadi Soda', price: '₹7' },
-            { name: 'Limbu Soda', price: '₹12' },
-            { name: 'Lemon Soda', price: '₹15' },
-            { name: 'Masala Soda', price: '₹10' },
-            { name: 'Sing Soda', price: '₹15' },
-            { name: 'Ginger Soda', price: '₹18' },
-            { name: 'Cola Soda', price: '₹20' },
-            { name: 'Orange Soda', price: '₹22' },
-            { name: 'Mango Soda', price: '₹25' },
-            { name: 'Pineapple Soda', price: '₹24' },
-            { name: 'Grape Soda', price: '₹21' },
-            { name: 'Rose Soda', price: '₹23' },
-            { name: 'Blueberry Soda', price: '₹27' },
-            { name: 'Mint Soda', price: '₹17' },
-            { name: 'Cumin Soda', price: '₹14' },
-            { name: 'Berry Mix Soda', price: '₹28' },
-            { name: 'Spicy Lemon Soda', price: '₹16' },
-            { name: 'Coconut Soda', price: '₹30' },
-            { name: 'Strawberry Soda', price: '₹29' },
-            { name: 'Peach Soda', price: '₹26' },
-            { name: 'Watermelon Soda', price: '₹25' },
-            { name: 'Chocolate Soda', price: '₹32' },
-            { name: 'Kiwi Soda', price: '₹31' },
-            { name: 'Pomegranate Soda', price: '₹29' },
-            { name: 'Apple Soda', price: '₹30' },
-            { name: 'Tamarind Soda', price: '₹18' },
-            { name: 'Raspberry Soda', price: '₹26' },
-            { name: 'Vanilla Soda', price: '₹24' },
-            { name: 'Guava Soda', price: '₹22' },
-            { name: 'Papaya Soda', price: '₹20' },
-        ];
+        function toggleSection(sectionId, containerId) {
+            const container = document.getElementById(containerId);
 
-        // Render soda items
-        const menuList = document.getElementById('menu-list');
-        sodas.forEach((soda, index) => {
-            const menuItem = document.createElement('div');
-            menuItem.className = 'menu-item';
-            menuItem.style.setProperty('--item-index', index);
-            menuItem.innerHTML = `
-                <img src="https://via.placeholder.com/60?text=S${index + 1}" alt="${soda.name}">
-                <div class="item-details">
-                    <span class="item-name">${soda.name}</span>
-                    <span class="item-price">${soda.price}</span>
-                </div>
-            `;
-            menuList.appendChild(menuItem);
-        });
+            // Toggle the 'expanded' class for this specific container to show/hide it
+            container.classList.toggle('expanded');
+
+            // Add or remove the 'expanded-section' class to control padding and animation
+            const section = document.getElementById(sectionId);
+            if (container.classList.contains('expanded')) {
+                section.classList.add('expanded-section');
+            } else {
+                section.classList.remove('expanded-section');
+            }
+        }
     </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

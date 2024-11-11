@@ -15,7 +15,7 @@
         }
 
         .menu-section {
-            margin: 20px 0;
+            margin: 10px 0;
             overflow: hidden;
             transition: max-height 0.3s ease-in-out, padding 0.3s;
         }
@@ -23,7 +23,7 @@
         .menu-header {
             background: #007bff;
             color: #ffffff;
-            padding: 10px;
+            padding: 15px;
             margin-bottom: 0;
             cursor: pointer;
             user-select: none;
@@ -70,89 +70,8 @@
         <h1 class="text-center mb-4">Soda Shop Menu</h1>
 
         <!-- Collapsible sections -->
-        <div class="accordion" id="sodaMenu">
+        <div class="accordion" id="sodaMenu"></div>
 
-            <!-- Regular Soda Section -->
-            <div class="menu-section" id="regularSodaSection">
-                <h2 class="menu-header" onclick="toggleSection('regularSodaSection', 'regularSodaContainer')">
-                    Regular Soda
-                </h2>
-                <div id="regularSodaContainer" class="menu-item-container">
-                    <div class="menu-item">
-                        <div class="item-name">Plain Strong Soda</div>
-                        <div class="menu-item-price">₹10</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-name">Orange</div>
-                        <div class="menu-item-price">₹15</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-name">Jeera Masala</div>
-                        <div class="menu-item-price">₹15</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-name">Fruit Beer</div>
-                        <div class="menu-item-price">₹15</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Lemon Special Section -->
-            <div class="menu-section" id="lemonSpecialSection">
-                <h2 class="menu-header" onclick="toggleSection('lemonSpecialSection', 'lemonSpecialContainer')">
-                    Lemon Special
-                </h2>
-                <div id="lemonSpecialContainer" class="menu-item-container">
-                    <div class="menu-item">
-                        <div class="item-name">Lemon Soda</div>
-                        <div class="menu-item-price">₹12</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-name">Masala Lemon</div>
-                        <div class="menu-item-price">₹14</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-name">Mint Lemon Soda</div>
-                        <div class="menu-item-price">₹16</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sp. Kashmiri Section -->
-            <div class="menu-section" id="spKashmiriSection">
-                <h2 class="menu-header" onclick="toggleSection('spKashmiriSection', 'spKashmiriContainer')">
-                    Sp. Kashmiri
-                </h2>
-                <div id="spKashmiriContainer" class="menu-item-container">
-                    <div class="menu-item">
-                        <div class="item-name">Kashmiri Soda</div>
-                        <div class="menu-item-price">₹20</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-name">Kashmiri Delight</div>
-                        <div class="menu-item-price">₹25</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Shing Soda Section -->
-            <div class="menu-section" id="shingSodaSection">
-                <h2 class="menu-header" onclick="toggleSection('shingSodaSection', 'shingSodaContainer')">
-                    Shing Soda
-                </h2>
-                <div id="shingSodaContainer" class="menu-item-container">
-                    <div class="menu-item">
-                        <div class="item-name">Plain Shing Soda</div>
-                        <div class="menu-item-price">₹10</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-name">Masala Shing Soda</div>
-                        <div class="menu-item-price">₹15</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
 
     <script>
@@ -170,6 +89,52 @@
                 section.classList.remove('expanded-section');
             }
         }
+
+        fetch('data/sodaMenu.json')
+            .then(response => response.json())
+            .then(data => {
+                const menuContainer = document.getElementById('sodaMenu');
+                data.menu.forEach(section => {
+                    // Create menu section
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'menu-section';
+                    sectionDiv.id = section.section.replace(/\s+/g, '') + 'Section';
+
+                    // Create section header
+                    const header = document.createElement('h2');
+                    header.className = 'menu-header';
+                    header.textContent = section.section;
+                    header.onclick = () => toggleSection(sectionDiv.id, sectionDiv.id + 'Container');
+                    sectionDiv.appendChild(header);
+
+                    // Create container for menu items
+                    const itemContainer = document.createElement('div');
+                    itemContainer.className = 'menu-item-container';
+                    itemContainer.id = sectionDiv.id + 'Container';
+
+                    // Populate items
+                    section.items.forEach(item => {
+                        const menuItem = document.createElement('div');
+                        menuItem.className = 'menu-item';
+
+                        const itemName = document.createElement('div');
+                        itemName.className = 'item-name';
+                        itemName.textContent = item.name;
+
+                        const itemPrice = document.createElement('div');
+                        itemPrice.className = 'menu-item-price';
+                        itemPrice.textContent = `₹${item.price}`;
+
+                        menuItem.appendChild(itemName);
+                        menuItem.appendChild(itemPrice);
+                        itemContainer.appendChild(menuItem);
+                    });
+
+                    sectionDiv.appendChild(itemContainer);
+                    menuContainer.appendChild(sectionDiv);
+                });
+            })
+            .catch(error => console.error('Error loading menu data:', error));
     </script>
 
 

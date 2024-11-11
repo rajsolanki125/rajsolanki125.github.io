@@ -101,7 +101,7 @@
                     "price": 25
                 },
                 {
-                    "name": "Lemon Sharbat",
+                    "name": "Lemon Sarbat",
                     "price": 25
                 },
                 {
@@ -330,6 +330,15 @@
                 {
                     "name": "Pulpy Jamun",
                     "price": 100
+                }
+            ]
+        },
+        {
+            "section":"Sing Chaska",
+            "items": [
+                {
+                    "name": "Sing Chaska",
+                    "price": 35
                 }
             ]
         }

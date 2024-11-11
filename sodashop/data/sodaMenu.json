@@ -64,7 +64,7 @@
                     "price": 15
                 },
                 {
-                    "name": "Mengo Maza",
+                    "name": "Mango Maza",
                     "price": 15
                 }
             ]
@@ -85,7 +85,7 @@
                     "price": 20
                 },
                 {
-                    "name": "lamon Fudina (Salted)",
+                    "name": "Lamon Pudina (Salted)",
                     "price": 20
                 },
                 {
@@ -93,7 +93,7 @@
                     "price": 20
                 },
                 {
-                    "name": "Ginger Lemon Fudina Soda",
+                    "name": "Ginger Lemon Pudina Soda",
                     "price": 25
                 },
                 {
@@ -134,7 +134,7 @@
                     "price": 25
                 },
                 {
-                    "name": "Kashmiri Fudina Masala",
+                    "name": "Kashmiri Pudina Masala",
                     "price": 25
                 },
                 {
@@ -167,7 +167,7 @@
                     "price": 25
                 },
                 {
-                    "name": "Sing Mengo",
+                    "name": "Sing Mango",
                     "price": 25
                 },
                 {
@@ -184,7 +184,7 @@
             "section": "Variety",
             "items": [
                 {
-                    "name": "Mengo Topra",
+                    "name": "Mango Topra",
                     "price": 25
                 },
                 {

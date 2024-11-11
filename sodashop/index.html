@@ -72,17 +72,48 @@
         .banner {
             text-align: center;
             margin-bottom: 5px;
+            transition: transform 1s ease, opacity 1s ease;
             animation: float 5s ease-in-out infinite;
         }
 
-        .banner img {
+        .banner #boardImg {
             max-width: 100%;
             height: auto;
             border-radius: 15px;
+            transform: translateY(1000px);
+            transition: transform 1s ease, opacity 1s ease;
+        }
+
+        .right-img{
+            position: absolute;
+            top: 15%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: transform 1s ease, opacity 1s ease;
+        }
+
+        .left-img {
+            position: absolute;
+            top: 30%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: transform 1s ease, opacity 1s ease;
+        }
+
+        .right-img {
+            right: -200px;
+        }
+
+        .left-img {
+            left: -200px;
+        }
+
+        .fade-up {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @keyframes float {
-
             0%,
             100% {
                 transform: translateY(0);
@@ -92,29 +123,62 @@
                 transform: translateY(-10px);
             }
         }
-
-        .fade-up {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 
 <body>
     <div class="container mt-4">
         <div class="banner">
-            <img src="images/board.jpg" alt="Soda Depot Logo">
+            <img src="images/board.jpg" alt="Soda Depot Logo" id="boardImg">
         </div>
+        <img src="images/right.png" alt="Right Image" class="right-img" id="rightImg">
+        <img src="images/left.png" alt="Left Image" class="left-img" id="leftImg">
         <div class="accordion" id="sodaMenu"></div>
     </div>
 
     <!-- Footer -->
     <footer class="text-white text-center py-3 mt-4" style="background-color: #3863b1;">
         <p>&copy; 2024 Soda Depot. All rights reserved.</p>
-        <p>Developed by <strong>Kishan Rathod</strong> & <strong><a href="rajsolanki.me" target="_blank" style="color: white; text-decoration: none;">Raj Solanki</a></strong> <br> Mobile: +91 88662 06008</p>
+        <p>Developed by <strong>Kishan Rathod</strong> & <strong><a href="rajsolanki.me" target="_blank"
+                    style="color: white; text-decoration: none;">Raj Solanki</a></strong> <br> Mobile: +91 88662 06008
+        </p>
     </footer>
 
     <script>
+        function animateImages() {
+            // Board image animation
+            const boardImg = document.getElementById('boardImg');
+            const rightImg = document.getElementById('rightImg');
+            const leftImg = document.getElementById('leftImg');
+
+            // Show board image
+            setTimeout(() => {
+                boardImg.style.transform = 'translateY(0)';
+            }, 100);
+
+            // Show right image
+            setTimeout(() => {
+                rightImg.style.transform = 'translateX(-50px)';
+                rightImg.style.opacity = '1';
+            }, 1200);
+
+            // Show left image
+            setTimeout(() => {
+                leftImg.style.transform = 'translateX(50px)';
+                leftImg.style.opacity = '1';
+            }, 2200);
+
+            // Trigger fade-up animation for sections
+            setTimeout(() => {
+                const sections = document.querySelectorAll('.menu-section');
+                sections.forEach((section, index) => {
+                    setTimeout(() => {
+                        section.classList.add('fade-up');
+                    }, index * 100);
+                });
+            }, 3200);
+        }
+
         function toggleSection(sectionId, containerId) {
             const container = document.getElementById(containerId);
             container.classList.toggle('expanded');
@@ -167,15 +231,8 @@
                     menuContainer.appendChild(sectionDiv);
                 });
 
-                // Trigger staggered fade-up animation after content is loaded
-                setTimeout(() => {
-                    const sections = document.querySelectorAll('.menu-section');
-                    sections.forEach((section, index) => {
-                        setTimeout(() => {
-                            section.classList.add('fade-up');
-                        }, index * 50); // Adjust the delay (200ms) as needed
-                    });
-                }, 100);
+                // Trigger animations after content is loaded
+                setTimeout(animateImages, 100);
             })
             .catch(error => console.error('Error loading menu data:', error));
     </script>

@@ -92,6 +92,7 @@
             opacity: 0;
             clip-path: inset(0 50% 0 0);
             object-fit: cover;
+            overflow: hidden;
             transition: transform 1s ease, opacity 1s ease;
         }
 
@@ -128,7 +129,12 @@
             }
         }
 
-
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+                /* Hide horizontal overflow on mobile devices */
+            }
+        }
     </style>
 </head>
 

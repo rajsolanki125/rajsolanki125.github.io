@@ -9,24 +9,28 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f8ff;
+            background-color: #fffbf2; /* Light background to match the board style */
             margin: 0;
             padding: 0;
         }
 
         .menu-section {
-            margin: 10px 0;
+            margin: 5px 0;
             overflow: hidden;
             transition: max-height 0.3s ease-in-out, padding 0.3s;
+            border-radius: 8px;
+            background: #cddbf7bb; /* Soft beige background to match the board colors */
+            padding: 10px;
         }
 
         .menu-header {
-            background: #007bff;
+            background: #3863b1; /* Orange shade matching the board */
             color: #ffffff;
             padding: 15px;
             margin-bottom: 0;
             cursor: pointer;
             user-select: none;
+            border-radius: 8px;
         }
 
         .menu-item-container {
@@ -38,21 +42,26 @@
         .menu-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 1px;
+            padding: 5px 10px;
+            background: #cddbf7bb; /* Lighter orange shade */
+            border-radius: 5px;
         }
 
         .menu-item-price {
             font-weight: bold;
+            color: #3863b1; /* Dark orange to keep it consistent */
         }
 
         .expanded {
-            max-height: 500px;
+            max-height: fit-content;
             padding: 10px;
         }
 
         .expanded-section {
-            background: #d4e9ff;
-            max-height: 500px;
+            background: #f0f5ffbb; /* Slightly lighter background for contrast */
+            max-height: 1000px;
+            /* padding-bottom: 50px; */
             overflow-y: auto;
         }
 
@@ -68,26 +77,13 @@
             border-radius: 15px;
         }
 
-        /* Forever animation for the banner */
+        /* Floating animation for the banner */
         @keyframes float {
             0%, 100% {
                 transform: translateY(0);
             }
             50% {
                 transform: translateY(-10px);
-            }
-        }
-
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 20px rgba(0, 123, 255, 1);
             }
         }
     </style>

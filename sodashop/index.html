@@ -85,11 +85,13 @@
             transition: transform 1s ease, opacity 1s ease;
         }
 
-        .right-img{
+        .right-img {
             position: absolute;
             top: 15%;
             transform: translateY(-50%);
             opacity: 0;
+            word-break: break-word;
+            overflow-wrap: break-word;
             transition: transform 1s ease, opacity 1s ease;
         }
 
@@ -115,6 +117,7 @@
         }
 
         @keyframes float {
+
             0%,
             100% {
                 transform: translateY(0);

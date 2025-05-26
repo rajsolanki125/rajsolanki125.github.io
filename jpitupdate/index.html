@@ -1,14 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download : Just Punch In Time</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download JPIT App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+
+    a.download-btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background-color: #34d399;
+      color: #000;
+      font-weight: bold;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    a.download-btn:hover {
+      background-color: #10b981;
+      transform: scale(1.05);
+    }
+
+    .note {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #ddd;
+    }
+  </style>
 </head>
 <body>
-    <h2>
-        Click below link to download App - <i>"Just Punch In Time"</i>
-    </h2>
-    <a href="/jpitapp/jpit-app-v1.0.0.apk" download>Just Punch In Time App (v1.0.0)</a>
+  <div class="container">
+    <h1>Download JPIT App</h1>
+    <p>Your gateway to staying connected with JPIT</p>
+    <a class="download-btn" href="/jpitapp/jpit-app.apk" download>
+      Download APK
+    </a>
+    <div class="note">Make sure you allow installation from unknown sources.</div>
+  </div>
 </body>
 </html>

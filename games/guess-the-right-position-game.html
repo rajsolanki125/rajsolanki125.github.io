@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Swap & Match – Mobile Friendly</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1116;
+  --surface: #151922;
+  --surface-2: #1b202b;
+  --accent: #5b8cff;
+  --accent-2: #7c4dff;
+  --text: #e8ecf1;
+  --muted: #8a92a6;
+  --success: #27c07d;
+  --danger: #ff4d6d;
+  --radius: 18px;
+  --gap: 12px;
+  --tile-size: 70px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.container {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(145deg, var(--surface), var(--surface-2));
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+h1 { margin: 0 0 4px; font-weight: 600; font-size: 1.6rem; }
+.subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 16px; }
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
+  gap: var(--gap);
+  justify-content: center;
+  margin-bottom: 20px;
+  user-select: none;
+}
+.tile {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.3rem;
+  cursor: grab;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
+  transition: transform .16s, background .2s, box-shadow .2s, outline-color .2s;
+}
+.tile.selected {
+  outline: 2px dashed var(--accent);
+  background: rgba(91,140,255,.15);
+}
+.badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.badge {
+  background: rgba(255,255,255,.04);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: .85rem;
+}
+.badge.accent { background: rgba(91,140,255,.12); color: var(--accent); }
+.badge.success { background: rgba(39,192,125,.12); color: var(--success); }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.btn {
+  flex: 1;
+  text-align: center;
+  appearance: none;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: filter .15s, transform .1s;
+}
+.btn.secondary { background: rgba(255,255,255,.05); color: var(--text); }
+.btn.danger { background: var(--danger); }
+.btn:hover { filter: brightness(1.05); }
+.btn:active { transform: scale(.98); }
+
+.history {
+  max-height: 180px;
+  overflow: auto;
+  background: rgba(255,255,255,.02);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: .9rem;
+}
+.history-title {
+  font-size: .95rem;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.history ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.history li {
+  padding: 6px 8px;
+  background: rgba(255,255,255,.02);
+  border-radius: 8px;
+}
+
+.progress {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width .2s;
+}
+select {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  padding: 2px 4px;
+  cursor: pointer;
+}
+@media (max-width: 480px) {
+  :root { --tile-size: 56px; --gap: 10px; }
+  h1 { font-size: 1.4rem; }
+  .btn { flex: 1 1 100%; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Swap & Match</h1>
+  <div class="subtitle">Choose 2–10 tiles and swap them (tap or drag) to match the hidden order.</div>
+
+  <div class="badges">
+    <span class="badge accent">Moves: <span id="moves">0</span></span>
+    <span class="badge success">Correct: <span id="correct">0</span> / <span id="sizeLabel">8</span></span>
+    <label class="badge">Size:
+      <select id="sizeSelect"></select>
+    </label>
+  </div>
+
+  <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
+  <div id="board" class="board"></div>
+
+  <div class="controls">
+    <button class="btn" id="newGameBtn">New Game</button>
+    <button class="btn secondary" id="shuffleGuessBtn">Shuffle</button>
+    <button class="btn secondary" id="undoBtn" disabled>Undo</button>
+    <button class="btn danger" id="revealBtn">Reveal</button>
+  </div>
+
+  <div class="history">
+    <div class="history-title">History</div>
+    <ul id="historyList"></ul>
+  </div>
+</div>
+
+<script>
+(() => {
+  const MIN_SIZE = 2;
+  const MAX_SIZE = 10;
+
+  let size = 8;
+  let secret = [];
+  let guess = [];
+  let moves = 0;
+  let history = [];
+  let lastStates = [];
+  let selectedIndex = null;
+
+  const boardEl = document.getElementById('board');
+  const movesEl = document.getElementById('moves');
+  const correctEl = document.getElementById('correct');
+  const sizeLabelEl = document.getElementById('sizeLabel');
+  const progressBarEl = document.getElementById('progressBar');
+  const revealBtn = document.getElementById('revealBtn');
+  const newGameBtn = document.getElementById('newGameBtn');
+  const shuffleGuessBtn = document.getElementById('shuffleGuessBtn');
+  const undoBtn = document.getElementById('undoBtn');
+  const historyList = document.getElementById('historyList');
+  const sizeSelect = document.getElementById('sizeSelect');
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function newGame(newSize = size) {
+    size = newSize;
+    sizeLabelEl.textContent = size;
+    secret = shuffle(Array.from({ length: size }, (_, i) => i + 1));
+    guess = Array.from({ length: size }, (_, i) => i + 1);
+    moves = 0;
+    history = [];
+    lastStates = [];
+    selectedIndex = null;
+    render();
+    logHistory('New game started', null);
+    updateStats();
+  }
+
+  function countCorrect() {
+    return guess.reduce((acc, v, i) => acc + (v === secret[i] ? 1 : 0), 0);
+  }
+
+  function updateStats() {
+    const c = countCorrect();
+    correctEl.textContent = c;
+    movesEl.textContent = moves;
+    progressBarEl.style.width = (c / size) * 100 + '%';
+  }
+
+  function render() {
+    boardEl.innerHTML = '';
+    boardEl.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    guess.forEach((value, index) => {
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      tile.draggable = true;
+      tile.textContent = value;
+      tile.dataset.index = index;
+
+      if (index === selectedIndex) tile.classList.add('selected');
+
+      tile.addEventListener('dragstart', dragStart);
+      tile.addEventListener('dragover', dragOver);
+      tile.addEventListener('drop', drop);
+      tile.addEventListener('dragend', dragEnd);
+      tile.addEventListener('click', () => handleClickSwap(index));
+
+      boardEl.appendChild(tile);
+    });
+  }
+
+  function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.dataset.index);
+    e.target.classList.add('dragging');
+  }
+  function dragOver(e) { e.preventDefault(); }
+  function drop(e) {
+    e.preventDefault();
+    const from = parseInt(e.dataTransfer.getData('text/plain'), 10);
+    const to = parseInt(e.target.dataset.index, 10);
+    boardEl.querySelector('.tile.dragging')?.classList.remove('dragging');
+    if (from !== to) performSwap(from, to);
+  }
+  function dragEnd(e) { e.target.classList.remove('dragging'); }
+
+  function handleClickSwap(idx) {
+    if (selectedIndex === null) { selectedIndex = idx; render(); }
+    else if (selectedIndex === idx) { selectedIndex = null; render(); }
+    else { performSwap(selectedIndex, idx); selectedIndex = null; }
+  }
+
+  function performSwap(i, j) {
+    pushUndo();
+    [guess[i], guess[j]] = [guess[j], guess[i]];
+    moves++;
+    render();
+    updateStats();
+    logHistory(`Swapped ${i+1} ↔ ${j+1}`, countCorrect());
+    if (countCorrect() === size) setTimeout(() => alert('🎉 You matched the secret permutation!'), 10);
+  }
+
+  function pushUndo() {
+    lastStates.push({ guess: [...guess], moves, historyLen: history.length });
+    undoBtn.disabled = false;
+  }
+  function undo() {
+    if (!lastStates.length) return;
+    const s = lastStates.pop();
+    guess = s.guess; moves = s.moves; history = history.slice(0, s.historyLen);
+    renderHistory(); render(); updateStats();
+    undoBtn.disabled = !lastStates.length;
+  }
+
+  function logHistory(action, correct = countCorrect()) {
+    history.push({ action, correct, snapshot: [...guess], move: moves, time: new Date().toLocaleTimeString() });
+    renderHistory();
+  }
+  function renderHistory() {
+    historyList.innerHTML = '';
+    history.forEach(h => {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${h.action}</strong> • Correct: ${h.correct}/${size} • Move: ${h.move} <br><span style="color:var(--muted)">[${h.time}]</span> [ ${h.snapshot.join(' ')} ]`;
+      historyList.appendChild(li);
+    });
+  }
+
+  // Events
+  revealBtn.addEventListener('click', () => alert('Secret: ' + secret.join(' ')));
+  newGameBtn.addEventListener('click', () => newGame(size));
+  shuffleGuessBtn.addEventListener('click', () => { pushUndo(); guess = shuffle(guess); moves++; render(); updateStats(); logHistory('Shuffled guess'); });
+  undoBtn.addEventListener('click', undo);
+  sizeSelect.addEventListener('change', e => newGame(parseInt(e.target.value)));
+
+  // Init
+  for (let i = MIN_SIZE; i <= MAX_SIZE; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i;
+    if (i === size) opt.selected = true;
+    sizeSelect.appendChild(opt);
+  }
+  newGame(size);
+})();
+</script>
+</body>
+</html>
